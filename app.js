@@ -15,6 +15,7 @@ const text = [
 const form = document.querySelector(".lorem-form");
 const amount = document.getElementById("amount");
 const article = document.querySelector(".lorem-text");
+const checkbox = document.querySelector("#start");
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -25,12 +26,25 @@ form.addEventListener("submit", (e) => {
   // Negative
   // More than 9
   if (isNaN(value) || value < 0 || value > 9) {
-    article.innerHTML = `<p class="result">${text[random]}</p>`;
+    if (checkbox.checked) {
+      article.innerHTML = `<p class="result">I am the best, ${text[random]}</p>`;
+    } else {
+      article.innerHTML = `<p class="result">${text[random]}</p>`;
+    }
   } else if (value === 0) {
     article.innerHTML = "";
   } else {
     let tempText = text.slice(0, value);
-    tempText = tempText.map((para) => `<p class="result">${para}</p>`).join("");
-    article.innerHTML = tempText;
+    if (checkbox.checked) {
+      tempText = tempText
+        .map((para) => `<p class="result">I am the best, ${para}</p>`)
+        .join("");
+      article.innerHTML = tempText;
+    } else {
+      tempText = tempText
+        .map((para) => `<p class="result">${para}</p>`)
+        .join("");
+      article.innerHTML = tempText;
+    }
   }
 });
